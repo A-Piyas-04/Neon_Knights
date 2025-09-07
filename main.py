@@ -1,118 +1,137 @@
 import pygame
 import sys
-from asset_manager import AssetManager
+from character_loader import CharacterDataLoader
 
-class NeonKnights:
-    def __init__(self):
-        pygame.init()
-        
-        # Game constants
-        self.SCREEN_WIDTH = 1280
-        self.SCREEN_HEIGHT = 720
-        self.FPS = 60
-        
-        # Initialize display
-        self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
-        pygame.display.set_caption("Neon Knights")
-        
-        # Game clock
-        self.clock = pygame.time.Clock()
-        
-        # Game state
-        self.running = True
-        self.game_state = "splash"  # splash, menu, playing, paused
-        
-        # Initialize asset manager
-        self.asset_manager = AssetManager()
-        
-        # Neon colors
-        self.NEON_CYAN = (0, 255, 255)
-        self.NEON_MAGENTA = (255, 0, 255)
-        self.NEON_PURPLE = (128, 0, 255)
-        self.BLACK = (0, 0, 0)
-        
-        # Splash screen timer
-        self.splash_timer = 0
-        self.splash_duration = 3000  # 3 seconds
+# Initialize pygame
+pygame.init()
+
+# Game constants
+SCREEN_WIDTH = 1024
+SCREEN_HEIGHT = 768
+FPS = 60
+
+def main():
+    """Main game function with character data loader integration."""
     
-    def handle_events(self):
-        """Handle pygame events"""
+    # Initialize display
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("Neon Knights - Character System Demo")
+    clock = pygame.time.Clock()
+    
+    # Initialize character loader
+    print("Loading character data...")
+    loader = CharacterDataLoader()
+    
+    if not loader.heroes_data:
+        print("Error: No hero data loaded!")
+        return
+    
+    print(f"Loaded {len(loader.heroes_data)} heroes")
+    
+    # Create sprite groups
+    all_sprites = pygame.sprite.Group()
+    heroes = pygame.sprite.Group()
+    
+    # Spawn some heroes for demonstration
+    hero_names = ["Stormbearer", "Aetheria", "Neon Centurion", "Nightclaw"]
+    spawned_heroes = []
+    
+    for i, name in enumerate(hero_names):
+        x = 150 + (i * 200)
+        y = 400
+        hero = loader.spawn_hero(name, x, y)
+        if hero:
+            all_sprites.add(hero)
+            heroes.add(hero)
+            spawned_heroes.append(hero)
+            print(f"Spawned {name} at ({x}, {y})")
+    
+    # Game state
+    selected_hero_index = 0
+    font = pygame.font.Font(None, 36)
+    small_font = pygame.font.Font(None, 24)
+    
+    print("\nGame Controls:")
+    print("- Arrow Keys: Select hero")
+    print("- SPACE: Attack")
+    print("- S: Special attack")
+    print("- ESC: Exit")
+    
+    # Main game loop
+    running = True
+    while running:
+        dt = clock.tick(FPS) / 1000.0  # Delta time in seconds
+        
+        # Handle events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.running = False
+                running = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    self.running = False
-                elif self.game_state == "splash":
-                    # Skip splash screen on any key press
-                    self.game_state = "menu"
-    
-    def update(self, dt):
-        """Update game logic"""
-        if self.game_state == "splash":
-            self.splash_timer += dt
-            if self.splash_timer >= self.splash_duration:
-                self.game_state = "menu"
-    
-    def draw_splash_screen(self):
-        """Draw the splash screen"""
-        self.screen.fill(self.BLACK)
+                    running = False
+                elif event.key == pygame.K_LEFT:
+                    selected_hero_index = (selected_hero_index - 1) % len(spawned_heroes)
+                elif event.key == pygame.K_RIGHT:
+                    selected_hero_index = (selected_hero_index + 1) % len(spawned_heroes)
+                elif event.key == pygame.K_SPACE:
+                    if spawned_heroes:
+                        spawned_heroes[selected_hero_index].attack("short")
+                elif event.key == pygame.K_s:
+                    if spawned_heroes:
+                        spawned_heroes[selected_hero_index].attack("special")
         
-        # Game title
-        font_large = pygame.font.Font(None, 72)
-        font_small = pygame.font.Font(None, 36)
+        # Update all sprites
+        all_sprites.update(dt)
         
-        title_text = font_large.render("NEON KNIGHTS", True, self.NEON_CYAN)
-        subtitle_text = font_small.render("Press any key to continue", True, self.NEON_MAGENTA)
+        # Draw everything
+        screen.fill((20, 20, 40))  # Dark blue background
         
-        # Center the text
-        title_rect = title_text.get_rect(center=(self.SCREEN_WIDTH // 2, self.SCREEN_HEIGHT // 2 - 50))
-        subtitle_rect = subtitle_text.get_rect(center=(self.SCREEN_WIDTH // 2, self.SCREEN_HEIGHT // 2 + 50))
+        # Draw title
+        title_text = font.render("Neon Knights - Character System", True, (255, 255, 255))
+        screen.blit(title_text, (SCREEN_WIDTH // 2 - title_text.get_width() // 2, 50))
         
-        self.screen.blit(title_text, title_rect)
-        self.screen.blit(subtitle_text, subtitle_rect)
+        # Draw heroes
+        all_sprites.draw(screen)
         
-        # Add a glowing effect (simple outline)
-        outline_title = font_large.render("NEON KNIGHTS", True, self.NEON_PURPLE)
-        for dx, dy in [(-2, -2), (-2, 2), (2, -2), (2, 2)]:
-            outline_rect = title_rect.copy()
-            outline_rect.x += dx
-            outline_rect.y += dy
-            self.screen.blit(outline_title, outline_rect)
+        # Draw hero names and selection indicator
+        for i, hero in enumerate(spawned_heroes):
+            # Hero name
+            name_text = small_font.render(hero.name, True, (255, 255, 255))
+            text_x = hero.rect.centerx - name_text.get_width() // 2
+            screen.blit(name_text, (text_x, hero.rect.y - 30))
+            
+            # Selection indicator
+            if i == selected_hero_index:
+                pygame.draw.rect(screen, (255, 255, 0), hero.rect, 3)
+                
+                # Show selected hero info
+                info = hero.get_info()
+                info_y = 150
+                info_texts = [
+                    f"Selected: {info['name']} ({info['gender']})",
+                    f"HP: {info['hp']}",
+                    f"Energy: {info['energy']}",
+                    f"Short Attack: {info['attacks']['short_attack'][:50]}...",
+                    f"Special: {info['attacks']['special'][:50]}..."
+                ]
+                
+                for j, text in enumerate(info_texts):
+                    rendered_text = small_font.render(text, True, (255, 255, 255))
+                    screen.blit(rendered_text, (50, info_y + j * 25))
         
-        self.screen.blit(title_text, title_rect)
-    
-    def draw_menu_screen(self):
-        """Draw the main menu"""
-        self.screen.fill(self.BLACK)
+        # Draw controls
+        controls = [
+            "Controls: ← → Select Hero | SPACE Attack | S Special | ESC Exit"
+        ]
         
-        font = pygame.font.Font(None, 48)
-        menu_text = font.render("MAIN MENU - Coming Soon!", True, self.NEON_CYAN)
-        menu_rect = menu_text.get_rect(center=(self.SCREEN_WIDTH // 2, self.SCREEN_HEIGHT // 2))
-        
-        self.screen.blit(menu_text, menu_rect)
-    
-    def render(self):
-        """Render the current game state"""
-        if self.game_state == "splash":
-            self.draw_splash_screen()
-        elif self.game_state == "menu":
-            self.draw_menu_screen()
+        for i, control in enumerate(controls):
+            control_text = small_font.render(control, True, (200, 200, 200))
+            screen.blit(control_text, (50, SCREEN_HEIGHT - 50 + i * 25))
         
         pygame.display.flip()
     
-    def run(self):
-        """Main game loop"""
-        while self.running:
-            dt = self.clock.tick(self.FPS)
-            
-            self.handle_events()
-            self.update(dt)
-            self.render()
-        
-        pygame.quit()
-        sys.exit()
+    pygame.quit()
+    print("Game ended.")
 
 if __name__ == "__main__":
-    game = NeonKnights()
-    game.run()
+    main()

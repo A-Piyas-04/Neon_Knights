@@ -1,0 +1,189 @@
+{
+  "heroes": [
+    {
+      "name": "Stormbearer",
+      "backstory": "A warrior from a forgotten neon realm, wields a hammer forged from a fallen star.",
+      "attacks": {
+        "short_attack": "Hammer swings & slams.",
+        "long_attack": "Lightning strikes.",
+        "special": "Hammer throw (boomerangs back).",
+        "super_power": "Calls down a neon storm that engulfs the screen."
+      },
+      "stats": {
+        "hp": 120,
+        "speed": 45,
+        "strength": 80,
+        "energy": 90
+      },
+      "gender": "male",
+      "sprite_path": "assets/sprites/stormbearer_male.png"
+    },
+    {
+      "name": "Neon Centurion",
+      "backstory": "Genius hacker-engineer wearing a neon-powered exo-suit.",
+      "attacks": {
+        "short_attack": "Armored punches, plasma blades.",
+        "long_attack": "Arm-mounted repulsor beams.",
+        "special": "Mini-missile volley.",
+        "super_power": "Full armor overdrive—fires massive chest cannon beam."
+      },
+      "stats": {
+        "hp": 100,
+        "speed": 60,
+        "strength": 70,
+        "energy": 100
+      },
+      "gender": "male",
+      "sprite_path": "assets/sprites/neon_centurion_male.png"
+    },
+    {
+      "name": "Webshade",
+      "backstory": "Street hero mutated by nanotech-infused spiders from an underground lab.",
+      "attacks": {
+        "short_attack": "Acrobat kicks, wall-flip strikes.",
+        "long_attack": "Neon web shots to stun enemies.",
+        "special": "Pull enemy with neon web & slam.",
+        "super_power": "Covers the battlefield in glowing webs, immobilizing all enemies."
+      },
+      "stats": {
+        "hp": 80,
+        "speed": 90,
+        "strength": 50,
+        "energy": 85
+      },
+      "gender": "male",
+      "sprite_path": "assets/sprites/webshade_male.png"
+    },
+    {
+      "name": "Hellrider",
+      "backstory": "Cursed biker fused with a neon demon, his skull burns with cyber-fire.",
+      "attacks": {
+        "short_attack": "Fiery chain whips & flaming punches.",
+        "long_attack": "Fire skull projectile.",
+        "special": "Hellfire bike ride through enemies.",
+        "super_power": "“Neon Penance Stare”—screen-wide burn effect."
+      },
+      "stats": {
+        "hp": 110,
+        "speed": 70,
+        "strength": 75,
+        "energy": 95
+      },
+      "gender": "male",
+      "sprite_path": "assets/sprites/hellrider_male.png"
+    },
+    {
+      "name": "Aetheria",
+      "backstory": "Warrior princess from a hidden neon utopia.",
+      "attacks": {
+        "short_attack": "Sword strikes & shield bash.",
+        "long_attack": "Lasso of neon-light, pulls enemies in.",
+        "special": "Spinning shield that reflects projectiles.",
+        "super_power": "Summons neon goddess aura, boosts strength + heals allies."
+      },
+      "stats": {
+        "hp": 95,
+        "speed": 65,
+        "strength": 70,
+        "energy": 80
+      },
+      "gender": "female",
+      "sprite_path": "assets/sprites/aetheria_female.png"
+    },
+    {
+      "name": "Solaris",
+      "backstory": "Alien hero drawing power from neon solar energy.",
+      "attacks": {
+        "short_attack": "Super-strength punches.",
+        "long_attack": "Eye beams.",
+        "special": "Shockwave ground slam.",
+        "super_power": "Goes “Neon Supernova” mode, boosting speed + damage."
+      },
+      "stats": {
+        "hp": 105,
+        "speed": 75,
+        "strength": 85,
+        "energy": 90
+      },
+      "gender": "female",
+      "sprite_path": "assets/sprites/solaris_female.png"
+    },
+    {
+      "name": "Nightclaw",
+      "backstory": "Neon thief-turned-vigilante, agile as a cyber-panther.",
+      "attacks": {
+        "short_attack": "Claw gauntlets, quick combo slashes.",
+        "long_attack": "Throwing neon daggers.",
+        "special": "Smoke bomb vanish + backstab.",
+        "super_power": "Summons cyber-panther spirit to fight alongside her."
+      },
+      "stats": {
+        "hp": 75,
+        "speed": 95,
+        "strength": 55,
+        "energy": 75
+      },
+      "gender": "female",
+      "sprite_path": "assets/sprites/nightclaw_female.png"
+    },
+    {
+      "name": "Titaness",
+      "backstory": "Scientist exposed to neon-radiation, transformed into a glowing powerhouse.",
+      "attacks": {
+        "short_attack": "Heavy punches & ground smashes.",
+        "long_attack": "Throws large objects (cars, debris).",
+        "special": "Shockwave clap.",
+        "super_power": "Berserk neon mode—unlimited combo power for a short time."
+      },
+      "stats": {
+        "hp": 140,
+        "speed": 35,
+        "strength": 95,
+        "energy": 70
+      },
+      "gender": "female",
+      "sprite_path": "assets/sprites/titaness_female.png"
+    },
+    {
+      "name": "Crimson Veil",
+      "backstory": "Assassin who manipulates her own neon-charged blood as a weapon.",
+      "attacks": {
+        "short_attack": "Daggers & slashes.",
+        "long_attack": "Blood projectiles (neon crimson spikes).",
+        "special": "Absorbs enemy HP with blood siphon.",
+        "super_power": "Explodes into a blood storm damaging all foes."
+      },
+      "stats": {
+        "hp": 85,
+        "speed": 80,
+        "strength": 60,
+        "energy": 85
+      },
+      "gender": "female",
+      "sprite_path": "assets/sprites/crimson_veil_female.png"
+    },
+    {
+      "name": "Phantom Shard",
+      "backstory": "A neon-forged wraith made of thousands of lost souls.",
+      "attacks": {
+        "short_attack": "Ethereal palm strikes.",
+        "long_attack": "Telekinetic blast.",
+        "special": "Levitation + body slam.",
+        "super_power": "Soul vortex—absorbs HP from all enemies on screen."
+      },
+      "stats": {
+        "hp": 90,
+        "speed": 55,
+        "strength": 65,
+        "energy": 100
+      },
+      "gender": "male",
+      "sprite_path": "assets/sprites/phantom_shard_male.png"
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "total_heroes": 10,
+    "description": "Neon Knights Hero Data - Generated from metahumans.txt"
+  }
+}
