@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Neon Knights Hero Data Schema",
+  "description": "JSON schema for defining heroes in Neon Knights game",
+  "type": "object",
+  "properties": {
+    "heroes": {
+      "type": "array",
+      "description": "Array of hero definitions",
+      "items": {
+        "$ref": "#/definitions/hero"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Schema version"
+        },
+        "total_heroes": {
+          "type": "integer",
+          "description": "Total number of heroes"
+        },
+        "description": {
+          "type": "string",
+          "description": "Data description"
+        }
+      }
+    }
+  },
+  "required": ["heroes"],
+  "definitions": {
+    "hero": {
+      "type": "object",
+      "description": "Individual hero definition",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Hero's name",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "backstory": {
+          "type": "string",
+          "description": "Hero's background story",
+          "minLength": 10,
+          "maxLength": 1000
+        },
+        "attacks": {
+          "$ref": "#/definitions/attacks"
+        },
+        "stats": {
+          "$ref": "#/definitions/stats"
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["male", "female"],
+          "description": "Hero's gender for sprite selection"
+        },
+        "sprite_path": {
+          "type": "string",
+          "description": "Path to hero's sprite file",
+          "pattern": "^assets/sprites/.*\\.(png|jpg|jpeg)$"
+        }
+      },
+      "required": ["name", "backstory", "attacks", "stats", "gender", "sprite_path"]
+    },
+    "attacks": {
+      "type": "object",
+      "description": "Hero's attack abilities",
+      "properties": {
+        "short_attack": {
+          "type": "string",
+          "description": "Quick attack description",
+          "minLength": 5,
+          "maxLength": 200
+        },
+        "long_attack": {
+          "type": "string",
+          "description": "Ranged attack description",
+          "minLength": 5,
+          "maxLength": 200
+        },
+        "special": {
+          "type": "string",
+          "description": "Special ability description",
+          "minLength": 5,
+          "maxLength": 200
+        },
+        "super_power": {
+          "type": "string",
+          "description": "Ultimate power description",
+          "minLength": 5,
+          "maxLength": 200
+        }
+      },
+      "required": ["short_attack", "long_attack", "special", "super_power"]
+    },
+    "stats": {
+      "type": "object",
+      "description": "Hero's combat statistics",
+      "properties": {
+        "hp": {
+          "type": "integer",
+          "description": "Health points",
+          "minimum": 50,
+          "maximum": 200
+        },
+        "speed": {
+          "type": "integer",
+          "description": "Movement speed",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "strength": {
+          "type": "integer",
+          "description": "Attack power",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "energy": {
+          "type": "integer",
+          "description": "Special ability energy",
+          "minimum": 50,
+          "maximum": 200
+        }
+      },
+      "required": ["hp", "speed", "strength", "energy"]
+    }
+  },
+  "examples": [
+    {
+      "heroes": [
+        {
+          "name": "Stormbearer",
+          "backstory": "A former meteorologist who gained control over weather after being struck by lightning during a freak storm.",
+          "attacks": {
+            "short_attack": "Lightning Jab - Quick electrical punch",
+            "long_attack": "Thunder Bolt - Ranged lightning strike",
+            "special": "Storm Shield - Creates protective electrical barrier",
+            "super_power": "Hurricane Fury - Massive storm devastation"
+          },
+          "stats": {
+            "hp": 120,
+            "speed": 7,
+            "strength": 8,
+            "energy": 150
+          },
+          "gender": "male",
+          "sprite_path": "assets/sprites/male/stormbearer.png"
+        }
+      ],
+      "metadata": {
+        "version": "1.0",
+        "total_heroes": 1,
+        "description": "Example hero data"
+      }
+    }
+  ]
+}
